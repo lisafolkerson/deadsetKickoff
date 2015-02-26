@@ -1,6 +1,6 @@
 var gulp   = require('gulp'),
 		jshint = require('gulp-jshint'),
-		sass = require('gulp-ruby-sass'),
+		sass = require('gulp-sass'),
 		autoprefixer = require('gulp-autoprefixer'),
 		minifycss = require('gulp-minify-css'),
 		rename = require('gulp-rename'),
@@ -17,7 +17,10 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('styles', function() {
-	return sass('css/main.scss', { style: 'expanded' })
+	gulp.src('./css/main.scss')
+		.pipe(sass({
+	  	"sourcemap=none": true
+	  }))
 		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
 		.pipe(gulp.dest('css'))
 		.pipe(rename({suffix: '.min'}))
